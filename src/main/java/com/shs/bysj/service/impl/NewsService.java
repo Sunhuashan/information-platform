@@ -22,6 +22,11 @@ public class NewsService implements INewsService {
     }
 
     @Override
+    public List<News> findAll() {
+        return newsRepository.findAll();
+    }
+
+    @Override
     public void deleteById(Long id) {
         newsRepository.deleteById(id);
     }

@@ -15,7 +15,7 @@ public interface INewsService {
      * @return
      */
     public List<News> findAllByReleaseId(Long id);
-
+    public List<News> findAll();
     /**
      * 根据id删除新闻
      * @param id

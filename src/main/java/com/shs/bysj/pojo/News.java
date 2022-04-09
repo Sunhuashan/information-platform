@@ -24,7 +24,6 @@ public class News {
     private String newsImagePath;
     @Column(columnDefinition = "boolean default false")
     private boolean newsState;
-
     @Transient
     private String newsReleaseName;
     @Transient

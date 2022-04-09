@@ -10,10 +10,7 @@ import com.shs.bysj.utils.StringUtil;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -130,6 +127,47 @@ public class NewsController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultFactory.buildFailResult("新闻发布失败");
+        }
+    }
+
+    /**
+     * 根据图片URL，删除文件
+     * @param url
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping(value = "/api/admin/removeImage")
+    public Result deleteImageByUrl(@RequestBody String url) {
+        String fileName = url.substring(url.lastIndexOf('/') + 1,url.length() - 2);
+        try {
+            File file = new File("E:/image/" + fileName);
+            file.delete();
+            return ResultFactory.buildSuccessResult(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("文件删除失败");
+        }
+    }
+
+    /**
+     * 查找全部新闻
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @GetMapping(value = "/api/admin/findNews")
+    public Result findAllNews(){
+        try {
+            List<News> newsList = newsService.findAll();
+            for (News news : newsList) {
+                String name = managerService.findManagerById(news.getNewsReleaseId()).getManagerUsername();
+                news.setNewsReleaseName(name);
+            }
+            return ResultFactory.buildSuccessResult(newsList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("查找全部新闻失败");
         }
     }
 }
