@@ -25,4 +25,9 @@ public class NewsService implements INewsService {
     public void deleteById(Long id) {
         newsRepository.deleteById(id);
     }
+
+    @Override
+    public void addNews(News news) {
+        newsRepository.save(news);
+    }
 }

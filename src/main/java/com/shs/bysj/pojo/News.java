@@ -22,9 +22,29 @@ public class News {
     private Long newsReleaseId;
     private Long newsCheckId;
     private String newsImagePath;
-
     @Column(columnDefinition = "boolean default false")
     private boolean newsState;
+
+    @Transient
+    private String newsReleaseName;
+    @Transient
+    private String newsCheckName;
+
+    public String getNewsReleaseName() {
+        return newsReleaseName;
+    }
+
+    public void setNewsReleaseName(String newsReleaseName) {
+        this.newsReleaseName = newsReleaseName;
+    }
+
+    public String getNewsCheckName() {
+        return newsCheckName;
+    }
+
+    public void setNewsCheckName(String newsCheckName) {
+        this.newsCheckName = newsCheckName;
+    }
 
     public boolean isNewsState() {
         return newsState;
@@ -47,6 +67,8 @@ public class News {
                 ", newsCheckId=" + newsCheckId +
                 ", newsImagePath='" + newsImagePath + '\'' +
                 ", newsState=" + newsState +
+                ", newsReleaseName='" + newsReleaseName + '\'' +
+                ", newsCheckName='" + newsCheckName + '\'' +
                 '}';
     }
 

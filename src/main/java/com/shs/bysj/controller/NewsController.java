@@ -6,6 +6,8 @@ import com.shs.bysj.result.Result;
 import com.shs.bysj.result.ResultFactory;
 import com.shs.bysj.service.IManagerService;
 import com.shs.bysj.service.INewsService;
+import com.shs.bysj.utils.StringUtil;
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -72,8 +77,59 @@ public class NewsController {
         }
     }
 
+
+    /**
+     * 保存图片到某目录下，并返回URL
+     * @param file
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping(value = "/api/admin/save_image")
     public Result saveImage(MultipartFile file) {
-            String folder = "";
-            return null;
+
+        try {
+            String typeName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+            File imgFolder = new File("E:/image");
+            String fileName = StringUtil.getRandomString(8) + typeName;
+            File f = new File(imgFolder, fileName);
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdirs();
+            }
+            file.transferTo(f);
+            String url = "http://localhost:8443/api/file/" + f.getName();
+            return ResultFactory.buildSuccessResult(url);
+
+        } catch (FileSizeLimitExceededException e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("图片大小超过1MB");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("图片上传失败,请尝试重新上传！");
+        }
+    }
+
+    /**
+     * 添加新闻
+     * @param news
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping(value = "/api/admin/addNews")
+    public Result addNews(@RequestBody News news) {
+        Date date = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        news.setNewsDate(sqlDate);
+        Long releaseId = managerService.findManagerByManagerName(news.getNewsReleaseName()).getId();
+        news.setNewsReleaseId(releaseId);
+        news.setNewsState(false);
+        try {
+            newsService.addNews(news);
+            return ResultFactory.buildSuccessResult(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("新闻发布失败");
+        }
     }
 }

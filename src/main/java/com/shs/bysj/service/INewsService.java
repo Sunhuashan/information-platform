@@ -21,4 +21,10 @@ public interface INewsService {
      * @param id
      */
     public void deleteById(Long id);
+
+    /**
+     * 添加新闻
+     * @param news
+     */
+    public void addNews(News news);
 }
