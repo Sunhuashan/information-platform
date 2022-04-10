@@ -9,12 +9,10 @@ import com.shs.bysj.service.INewsService;
 import com.shs.bysj.utils.StringUtil;
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +20,7 @@ import java.util.List;
  * @Author: shs
  * @Data: 2022/4/7 14:02
  */
-@Controller
+@RestController
 public class NewsController {
     @Autowired
     INewsService newsService;
@@ -168,6 +166,24 @@ public class NewsController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultFactory.buildFailResult("查找全部新闻失败");
+        }
+    }
+
+    /**
+     * 更新新闻状态
+     * @param news
+     * @return
+     */
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping(value = "/api/admin/updateState")
+    public Result updateNewsState(@RequestBody News news) {
+        try {
+            newsService.updateNewsState(news);
+            return ResultFactory.buildSuccessResult(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("状态更新失败！");
         }
     }
 }

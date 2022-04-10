@@ -27,4 +27,10 @@ public interface INewsService {
      * @param news
      */
     public void addNews(News news);
+
+    /**
+     * 更新新闻状态
+     * @param news
+     */
+    public void updateNewsState(News news);
 }

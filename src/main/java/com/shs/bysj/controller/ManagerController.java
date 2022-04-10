@@ -161,8 +161,8 @@ public class ManagerController {
     @ResponseBody
     @PostMapping(value = "/api/admin/resetPassword")
     public Result resetPassword(@RequestBody Manager manager) {
-        //初始密码：000000
-        String initialPassword = "000000";
+        //初始密码：admin
+        String initialPassword = "admin";
         String name = manager.getManagerUsername();
         Manager managerDB = managerService.findManagerByManagerName(name);
         String salt = managerDB.getManagerSalt();

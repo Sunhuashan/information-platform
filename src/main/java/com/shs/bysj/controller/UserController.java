@@ -5,7 +5,6 @@ import com.shs.bysj.result.Result;
 import com.shs.bysj.result.ResultFactory;
 import com.shs.bysj.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * @Author: shs
  * @Data: 2022/4/6 12:55
  */
-@Controller
+@RestController
 @CrossOrigin
 public class UserController {
     @Autowired
