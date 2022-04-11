@@ -6,23 +6,76 @@ import com.shs.bysj.repository.AnnoRepository;
 import com.shs.bysj.repository.ManagerRepository;
 import com.shs.bysj.service.IAnnoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * @Author: shs
  * @Data: 2022/4/10 21:29
  */
+@Service
 public class AnnoService implements IAnnoService {
     @Autowired
     private ManagerRepository managerRepository;
     @Autowired
     private AnnoRepository annoRepository;
     @Override
-    public List<Announcement> findAllAnno(Manager manager) {
+    public List<Announcement> findAllAnnoById(Manager manager) {
         String name = manager.getManagerUsername();
         Long id = managerRepository.findManagerByManagerUsername(name).getId();
-
-
+        return annoRepository.findAllByAnnoReleaseId(id);
     }
+
+    @Override
+    public void deleteAnnoById(Announcement announcement) {
+        Long aid = announcement.getId();
+        annoRepository.deleteById(aid);
+    }
+
+    @Override
+    public void addAnno(Announcement announcement) {
+        Date currentDate = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+        announcement.setAnnoDate(sqlDate);
+
+        Long releaseId = managerRepository.findManagerByManagerUsername(announcement.getAnnoReleaseName()).getId();
+        announcement.setAnnoReleaseId(releaseId);
+
+        announcement.setAnnoState(false);
+
+        annoRepository.save(announcement);
+    }
+
+    @Override
+    public void updateAnno(Announcement announcement) {
+        Date currentDate = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(currentDate.getTime());
+        announcement.setAnnoDate(sqlDate);
+
+        annoRepository.save(announcement);
+    }
+
+    @Override
+    public List<Announcement> findAll() {
+        List<Announcement> list = annoRepository.findAll();
+        for (Announcement anno : list) {
+            String name = managerRepository.findManagerById(anno.getAnnoReleaseId()).getManagerUsername();
+            anno.setAnnoReleaseName(name);
+        }
+        return list;
+    }
+
+    @Override
+    public void updateState(Announcement announcement) {
+        Long id = announcement.getId();
+        Announcement annoDB = annoRepository.findAnnouncementById(id);
+
+        annoDB.setAnnoState(announcement.isAnnoState());
+        annoDB.setAnnoCheckId(managerRepository.findManagerByManagerUsername(announcement.getAnnoCheckName()).getId());
+        annoRepository.save(annoDB);
+    }
+
+
 }

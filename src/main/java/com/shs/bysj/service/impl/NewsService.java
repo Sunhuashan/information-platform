@@ -49,7 +49,7 @@ public class NewsService implements INewsService {
         News newsDB = newsRepository.getById(id);
 
         newsDB.setNewsState(news.isNewsState());
-        newsDB.setNewsCheckName(manager.getManagerUsername());
+        newsDB.setNewsCheckId(manager.getId());
         newsRepository.save(newsDB);
     }
 

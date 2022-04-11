@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ManagerRepository extends JpaRepository<Manager,Long> , JpaSpecificationExecutor<Manager> {
 
+    public Manager findManagerById(Long id);
     public Manager findAllByManagerUsername(String name);
     public Manager findManagerByManagerUsername(String name);
     @Transactional

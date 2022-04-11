@@ -11,5 +11,6 @@ import java.util.List;
  * @Data: 2022/4/10 21:26
  */
 public interface AnnoRepository extends JpaRepository<Announcement,Long>, JpaSpecificationExecutor<Announcement> {
-    List<Announcement> findAllById(Long id);
+    List<Announcement> findAllByAnnoReleaseId(Long id);
+    Announcement findAnnouncementById(Long aid);
 }
