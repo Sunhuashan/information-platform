@@ -15,6 +15,10 @@ spring:
     properties:
       hiberbate:
         enable_lazy_load_no_trans: true
-
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 300MB
 server:
   port: 8443
+

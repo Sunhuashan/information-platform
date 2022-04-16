@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,13 @@ public class NewsController {
         try {
             Long newsReleaseId =  managerService.findManagerByManagerName(name).getId();
             List<News> newsList = newsService.findAllByReleaseId(newsReleaseId);
+            for (News news : newsList){
+                if(news.isNewsState()) {
+                    String checkName = managerService.findManagerById(news.getNewsCheckId()).getManagerUsername();
+                    news.setNewsCheckName(checkName);
+                }
 
+            }
 
             //此处日后可添加对新闻的排序
 
