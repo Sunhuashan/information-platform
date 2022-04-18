@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface PublicityRepository extends JpaRepository<Publicity,Long>, JpaSpecificationExecutor<Publicity> {
     public List<Publicity> findAllByPubReleaseId(Long rid);
+    public Publicity findPublicityById(Long id);
 }

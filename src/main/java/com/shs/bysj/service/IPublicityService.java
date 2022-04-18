@@ -20,4 +20,15 @@ public interface IPublicityService {
      * @return
      */
     public List<Publicity> findAllByReleaseName(Publicity publicity);
+
+    /**
+     * 查找所有发布的宣传内容
+     * @return
+     */
+    public List<Publicity> findAll();
+
+    /**
+     * 更新状态
+     */
+    public void updatePublicityState(Publicity publicity);
 }

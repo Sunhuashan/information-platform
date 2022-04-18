@@ -25,7 +25,12 @@ public class AnnoService implements IAnnoService {
     public List<Announcement> findAllAnnoById(Manager manager) {
         String name = manager.getManagerUsername();
         Long id = managerRepository.findManagerByManagerUsername(name).getId();
-        return annoRepository.findAllByAnnoReleaseId(id);
+        List<Announcement> list = annoRepository.findAllByAnnoReleaseId(id);
+        for (Announcement anno : list) {
+            if (anno.isAnnoState())
+                anno.setAnnoCheckName(managerRepository.findManagerById(anno.getAnnoCheckId()).getManagerUsername());
+        }
+        return list;
     }
 
     @Override

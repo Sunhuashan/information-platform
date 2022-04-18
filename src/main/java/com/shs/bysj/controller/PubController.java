@@ -43,9 +43,24 @@ public class PubController {
      * @return
      */
     @ResponseBody
-    @PostMapping(value = "/api/admin/findAllPub")
+    @PostMapping(value = "/api/admin/findAllPubByName")
     public Result findAllByReleaseName(@RequestBody Publicity publicity) {
         List<Publicity> publicityList = publicityService.findAllByReleaseName(publicity);
         return ResultFactory.buildSuccessResult(publicityList);
     }
+
+    @ResponseBody
+    @GetMapping(value = "/api/admin/findAllPublicty")
+    public Result findAll() {
+        List<Publicity> publicityList = publicityService.findAll();
+        return ResultFactory.buildSuccessResult(publicityList);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/admin/updatePublicityState")
+    public Result updatePublicityState(@RequestBody Publicity publicity) {
+        publicityService.updatePublicityState(publicity);
+        return ResultFactory.buildSuccessResult(null);
+    }
+
 }

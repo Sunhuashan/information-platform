@@ -35,6 +35,33 @@ public class PublicityService implements IPublicityService {
     @Override
     public List<Publicity> findAllByReleaseName(Publicity publicity) {
         Long rid = managerRepository.findManagerByManagerUsername(publicity.getPubReleaseName()).getId();
-        return publicityRepository.findAllByPubReleaseId(rid);
+        List<Publicity> list = publicityRepository.findAllByPubReleaseId(rid);
+        for(Publicity temp : list) {
+            if (temp.isPubState())
+                temp.setPubCheckName(managerRepository.findManagerById(temp.getPubCheckId()).getManagerUsername());
+        }
+        return list;
+    }
+
+    @Override
+    public List<Publicity> findAll() {
+        List<Publicity> publicityList = publicityRepository.findAll();
+        for(Publicity publicity : publicityList) {
+            Long rid = publicity.getPubReleaseId();
+            publicity.setPubReleaseName(managerRepository.findManagerById(rid).getManagerUsername());
+        }
+        return publicityList;
+    }
+
+    @Override
+    public void updatePublicityState(Publicity publicity) {
+        Publicity publicityDB = publicityRepository.findPublicityById(publicity.getId());
+        publicityDB.setPubState(publicity.isPubState());
+
+        Long checkId = managerRepository.findManagerByManagerUsername(publicity.getPubCheckName()).getId();
+
+        publicityDB.setPubCheckId(checkId);
+
+        publicityRepository.save(publicityDB);
     }
 }
