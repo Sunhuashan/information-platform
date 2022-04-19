@@ -7,6 +7,8 @@ import com.shs.bysj.service.IResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -75,5 +77,22 @@ public class ResearchService implements IResearchService {
 
         researchDB.setCheckId(checkId);
         researchRepository.save(researchDB);
+    }
+
+    @Override
+    public List<Research> findAllResearchByState() {
+        List<Research> list = researchRepository.findAllByState(true);
+        Collections.sort(list, new Comparator<Research>() {
+            @Override
+            public int compare(Research o1, Research o2) {
+                Long diff = o1.getId() - o2.getId();
+                if (diff > 0)
+                    return 1;
+                if (diff < 0)
+                    return -1;
+                return 0;
+            }
+        });
+        return list;
     }
 }

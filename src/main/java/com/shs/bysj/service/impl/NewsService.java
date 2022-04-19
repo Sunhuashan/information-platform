@@ -8,6 +8,8 @@ import com.shs.bysj.service.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -53,4 +55,22 @@ public class NewsService implements INewsService {
         newsRepository.save(newsDB);
     }
 
+    @Override
+    public List<News> findAllNewsByState() {
+        List<News> list = newsRepository.findAllByNewsState(true);
+        Collections.sort(list, new Comparator<News>() {
+            @Override
+            public int compare(News o1, News o2) {
+                Long diff = o1.getId() - o2.getId();
+                if (diff > 0) {
+                    return -1;
+                } else if (diff < 0) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return list;
+    }
 }

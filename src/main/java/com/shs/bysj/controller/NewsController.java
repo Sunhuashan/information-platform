@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
@@ -192,5 +193,13 @@ public class NewsController {
             e.printStackTrace();
             return ResultFactory.buildFailResult("状态更新失败！");
         }
+    }
+
+    @CrossOrigin
+    @ResponseBody
+    @GetMapping(value = "/api/home/findAllNews")
+    public Result findAllNewsByState() {
+        List<News> list = newsService.findAllNewsByState();
+        return ResultFactory.buildSuccessResult(list);
     }
 }

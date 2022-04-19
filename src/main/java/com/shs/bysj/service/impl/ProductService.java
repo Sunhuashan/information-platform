@@ -22,7 +22,12 @@ public class ProductService implements IProductService {
     ManagerRepository managerRepository;
     @Override
     public List<Product> findAllProduct() {
-        return productRepository.findAll();
+
+        List<Product> list = productRepository.findAll();
+        for (Product product : list) {
+            product.setReleaseName(managerRepository.findManagerById(product.getReleaseId()).getManagerUsername());
+        }
+        return list;
     }
 
     @Override
@@ -59,5 +64,16 @@ public class ProductService implements IProductService {
         product.setDate(sqlDate);
 
         productRepository.save(product);
+    }
+
+    @Override
+    public void updateProductState(Product product) {
+        Product productDB = productRepository.findProductById(product.getId());
+        productDB.setState(product.isState());
+
+        Long checkId = managerRepository.findManagerByManagerUsername(product.getCheckName()).getId();
+        productDB.setCheckId(checkId);
+
+        productRepository.save(productDB);
     }
 }

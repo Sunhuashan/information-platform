@@ -8,8 +8,7 @@ import com.shs.bysj.service.IAnnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: shs
@@ -80,6 +79,23 @@ public class AnnoService implements IAnnoService {
         annoDB.setAnnoState(announcement.isAnnoState());
         annoDB.setAnnoCheckId(managerRepository.findManagerByManagerUsername(announcement.getAnnoCheckName()).getId());
         annoRepository.save(annoDB);
+    }
+
+    @Override
+    public List<Announcement> findAllAnnoByState() {
+        List<Announcement> list = annoRepository.findAllByAnnoState(true);
+        Collections.sort(list, new Comparator<Announcement>() {
+            @Override
+            public int compare(Announcement o1, Announcement o2) {
+                Long diff = o1.getId() - o2.getId();
+                if (diff > 0)
+                    return -1;
+                else if (diff < 0)
+                    return 1;
+                return 0;
+            }
+        });
+        return list;
     }
 
 

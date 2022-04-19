@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface NewsRepository extends JpaRepository<News,Long>, JpaSpecificationExecutor<News> {
     public List<News> findAllByNewsReleaseId(Long id);
+    public List<News> findAllByNewsState(boolean state);
 }

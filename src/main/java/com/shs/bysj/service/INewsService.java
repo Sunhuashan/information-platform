@@ -33,4 +33,10 @@ public interface INewsService {
      * @param news
      */
     public void updateNewsState(News news);
+
+    /**
+     * 查找所有通过审核的新闻
+     * @return
+     */
+    public List<News> findAllNewsByState();
 }

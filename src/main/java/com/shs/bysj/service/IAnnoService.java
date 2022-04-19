@@ -43,4 +43,10 @@ public interface IAnnoService {
      * @param announcement
      */
     public void updateState(Announcement announcement);
+
+    /**
+     * 查找所有已审核通过的通知
+     * @return
+     */
+    public List<Announcement> findAllAnnoByState();
 }

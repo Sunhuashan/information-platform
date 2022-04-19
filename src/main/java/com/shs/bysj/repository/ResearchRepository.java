@@ -13,4 +13,5 @@ import java.util.List;
 public interface ResearchRepository extends JpaRepository<Research,Long>, JpaSpecificationExecutor<Research> {
     public List<Research> findAllByReleaseId(Long rid);
     public Research findResearchById(Long id);
+    public List<Research> findAllByState(boolean state);
 }

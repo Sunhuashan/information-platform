@@ -35,4 +35,10 @@ public interface IProductService {
      * @param product
      */
     public void updateProduct(Product product);
+
+    /**
+     * 更新产品审核状态
+     * @param product
+     */
+    public void updateProductState(Product product);
 }

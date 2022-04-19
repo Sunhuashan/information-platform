@@ -44,4 +44,10 @@ public interface IResearchService {
      * @param research
      */
     public void updateResearchState(Research research);
+
+    /**
+     * 查询所有已经被审核通过的科研信息
+     * @return
+     */
+    public List<Research> findAllResearchByState();
 }

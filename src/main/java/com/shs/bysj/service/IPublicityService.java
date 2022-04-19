@@ -31,4 +31,16 @@ public interface IPublicityService {
      * 更新状态
      */
     public void updatePublicityState(Publicity publicity);
+
+    /**
+     * 删除宣传内容
+     * @param publicity
+     */
+    public void deletePublicity(Publicity publicity);
+
+    /**
+     * 查找所有已审核的宣传内容
+     * @return
+     */
+    public List<Publicity> findAllPublicityByState();
 }

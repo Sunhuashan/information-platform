@@ -64,4 +64,14 @@ public class PublicityService implements IPublicityService {
 
         publicityRepository.save(publicityDB);
     }
+
+    @Override
+    public void deletePublicity(Publicity publicity) {
+        publicityRepository.deleteById(publicity.getId());
+    }
+
+    @Override
+    public List<Publicity> findAllPublicityByState() {
+        return publicityRepository.findAllByPubState(true);
+    }
 }

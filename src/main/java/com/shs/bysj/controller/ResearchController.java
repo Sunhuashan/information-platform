@@ -60,4 +60,10 @@ public class ResearchController {
         return ResultFactory.buildSuccessResult(null);
     }
 
+    @ResponseBody
+    @GetMapping(value = "/api/home/findAllResearch")
+    public Result findAllResearchByState() {
+        List<Research> list = researchService.findAllResearchByState();
+        return ResultFactory.buildSuccessResult(list);
+    }
 }

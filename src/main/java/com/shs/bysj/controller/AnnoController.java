@@ -14,6 +14,7 @@ import java.util.List;
  * @Author: shs
  * @Data: 2022/4/11 14:22
  */
+@CrossOrigin
 @RestController
 public class AnnoController {
     @Autowired
@@ -66,5 +67,12 @@ public class AnnoController {
     public Result updateState(@RequestBody Announcement announcement) {
         annoService.updateState(announcement);
         return ResultFactory.buildSuccessResult(null);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/api/home/findAllAnno")
+    public Result findAllByState() {
+        List<Announcement> list = annoService.findAllAnnoByState();
+        return ResultFactory.buildSuccessResult(list);
     }
 }

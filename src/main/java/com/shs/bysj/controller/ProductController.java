@@ -54,4 +54,12 @@ public class ProductController {
         productService.updateProduct(product);
         return ResultFactory.buildSuccessResult(null);
     }
+
+    @ResponseBody
+    @PostMapping(value = "/api/admin/updateProductState")
+    public Result updateProductState(@RequestBody Product product) {
+        productService.updateProductState(product);
+        return ResultFactory.buildSuccessResult(null);
+    }
+
 }
