@@ -10,5 +10,5 @@ public interface ILoginService {
     /**
      * 普通用户登录
      */
-    public void login(User user);
+    public boolean login(User user);
 }
