@@ -39,4 +39,9 @@ public interface INewsService {
      * @return
      */
     public List<News> findAllNewsByState();
+
+    /**
+     * 根据id返回新闻
+     */
+    public News findNewsById(News news);
 }

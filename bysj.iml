@@ -133,5 +133,7 @@
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-event:1.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.owasp.encoder:encoder:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-spring:1.8.0" level="project" />
+    <orderEntry type="library" name="Maven: com.huaban:jieba-analysis:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.12.0" level="project" />
   </component>
 </module>

@@ -202,4 +202,16 @@ public class NewsController {
         List<News> list = newsService.findAllNewsByState();
         return ResultFactory.buildSuccessResult(list);
     }
+
+    @CrossOrigin
+    @ResponseBody
+    @PostMapping(value = "/api/home/findNewsById")
+    public Result findNewsById(@RequestBody News news) {
+        try {
+            News news1 = newsService.findNewsById(news);
+            return ResultFactory.buildSuccessResult(news1);
+        } catch (Exception e) {
+            return ResultFactory.buildFailResult("出错了");
+        }
+    }
 }

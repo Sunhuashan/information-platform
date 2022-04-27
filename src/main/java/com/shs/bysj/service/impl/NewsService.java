@@ -73,4 +73,14 @@ public class NewsService implements INewsService {
         });
         return list;
     }
+
+    @Override
+    public News findNewsById(News news) {
+        News newsDB = newsRepository.findNewsById(news.getId());
+        String releaseName = managerRepository.findManagerById(newsDB.getNewsReleaseId()).getManagerUsername();
+        String checkName = managerRepository.findManagerById(newsDB.getNewsCheckId()).getManagerUsername();
+        newsDB.setNewsReleaseName(releaseName);
+        newsDB.setNewsCheckName(checkName);
+        return newsDB;
+    }
 }
