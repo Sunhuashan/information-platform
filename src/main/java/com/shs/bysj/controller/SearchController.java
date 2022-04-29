@@ -7,10 +7,8 @@ import com.shs.bysj.pojo.Search;
 import com.shs.bysj.result.Result;
 import com.shs.bysj.result.ResultFactory;
 import com.shs.bysj.service.ISearchService;
-import org.hibernate.loader.custom.ResultRowProcessor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
