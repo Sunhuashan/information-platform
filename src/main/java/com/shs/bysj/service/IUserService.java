@@ -20,4 +20,30 @@ public interface IUserService {
      * 删除用户信息
      */
     public void deleteByUsername(String name);
+
+    /**
+     * 根据用户名获取用户
+     * @param user
+     * @return
+     */
+    public User findUserByName(User user);
+
+    /**
+     * 检查密码是否正确
+     * @param user
+     * @return
+     */
+    public boolean checkPassword(User user);
+
+    /**
+     * 更新密码
+     * @param user
+     */
+    public void setNewPassword(User user);
+
+    /**
+     * 更新用户信息
+     * @param user
+     */
+    public void updateUser(User user);
 }

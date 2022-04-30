@@ -23,6 +23,17 @@ public class User {
     private String userDetail;
     private String userSalt;
 
+    @Transient
+    private String newPassword;
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
     public User() {
     }
 

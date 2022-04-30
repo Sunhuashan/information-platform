@@ -4,11 +4,10 @@ import com.shs.bysj.pojo.Posts;
 import com.shs.bysj.result.Result;
 import com.shs.bysj.result.ResultFactory;
 import com.shs.bysj.service.IPostsService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +30,7 @@ public class PostsController {
     @GetMapping(value = "/api/home/findAllPostsByState")
     public Result findAllPostsByState() {
         List<Posts> list = postsService.findAllPostsByState();
+        Collections.reverse(list);
         return ResultFactory.buildSuccessResult(list);
     }
 }

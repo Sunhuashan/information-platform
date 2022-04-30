@@ -48,4 +48,32 @@ public class UserController {
             return ResultFactory.buildFailResult(null);
         }
     }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/findUserByName")
+    public Result findUserByName(@RequestBody User user) {
+        User userDB = userService.findUserByName(user);
+        return ResultFactory.buildSuccessResult(userDB);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/updatePassword")
+    public Result updatePassword(@RequestBody User user) {
+        if (userService.checkPassword(user)) {
+            userService.setNewPassword(user);
+            return ResultFactory.buildSuccessResult(null);
+        }
+        else {
+            return ResultFactory.buildFailResult("旧密码错误！请重新输入");
+        }
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/updateUser")
+    public Result updateUser(@RequestBody User user) {
+        System.out.println(user);
+        userService.updateUser(user);
+        return ResultFactory.buildSuccessResult(null);
+    }
+
 }

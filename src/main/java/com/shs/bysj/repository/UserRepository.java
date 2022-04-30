@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User,Long>, JpaSpecificati
     @Transactional
     public void deleteUserByUsername(String name);
     public User findUserByUsername(String name);
+
+    public User findUserById(Long id);
 }

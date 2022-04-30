@@ -23,6 +23,8 @@ public class PostsService implements IPostsService {
         java.sql.Date dateSql = new java.sql.Date(date.getTime());
         posts.setDate(dateSql);
 
+        posts.setState(true);
+
         psotsRepository.save(posts);
     }
 
