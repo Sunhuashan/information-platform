@@ -33,4 +33,25 @@ public class PostsController {
         Collections.reverse(list);
         return ResultFactory.buildSuccessResult(list);
     }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/findAllPostsByReleaseName")
+    public Result findAllByReleaseName(@RequestBody Posts posts) {
+        List<Posts> list = postsService.findAllPostsByReleaseName(posts.getReleaseName());
+        return ResultFactory.buildSuccessResult(list);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/updatePosts")
+    public Result updatePosts(@RequestBody Posts posts) {
+        postsService.updatePosts(posts);
+        return ResultFactory.buildSuccessResult(null);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/deletePosts")
+    public Result deletePosts(@RequestBody Posts posts) {
+        postsService.deletePosts(posts);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

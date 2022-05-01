@@ -4,6 +4,7 @@ import com.shs.bysj.pojo.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,4 +17,8 @@ public interface CommentRepository extends JpaRepository<Comment,Long>, JpaSpeci
     public Comment findCommentById(Long id);
     @Query(nativeQuery = true,value = "select * from comment where posts_id = :pid and state = :state")
     public List<Comment> findAllByPostsIdAndState(Long pid, boolean state);
+
+    @Transactional
+    public void deleteAllByPostsId(Long pid);
+
 }
