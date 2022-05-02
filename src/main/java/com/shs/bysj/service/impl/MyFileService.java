@@ -4,6 +4,7 @@ import com.shs.bysj.exception.FilenameExistException;
 import com.shs.bysj.pojo.MyFile;
 import com.shs.bysj.repository.MyFileRepository;
 import com.shs.bysj.service.IMyFileService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,5 +55,44 @@ public class MyFileService implements IMyFileService {
         List<MyFile> list = myFileRepository.findAllByState(true);
         Collections.reverse(list);
         return list;
+    }
+
+    @Override
+    public void updateFileState(MyFile myFile) {
+        MyFile myFileDB = myFileRepository.findMyFileById(myFile.getId());
+
+        myFileDB.setDate(DateUtil.getSqlDate());
+        myFileDB.setState(myFile.isState());
+        myFileDB.setCheckName(myFile.getCheckName());
+
+        myFileRepository.save(myFileDB);
+    }
+
+    @Override
+    public List<MyFile> findAllFile() {
+        List<MyFile> list = myFileRepository.findAll();
+        Collections.reverse(list);
+        return list;
+    }
+
+    @Override
+    public void addCheckInfo(MyFile myFile) {
+        MyFile myFileDB = myFileRepository.findMyFileById(myFile.getId());
+
+        myFileDB.setDate(DateUtil.getSqlDate());
+        myFileDB.setCheckInfo(myFile.getCheckInfo());
+        myFileDB.setCheckName(myFile.getCheckName());
+
+        myFileRepository.save(myFileDB);
+    }
+
+    @Override
+    public void deleteFileById(Long id) {
+        MyFile myFile = myFileRepository.findMyFileById(id);
+        String path = myFile.getPath();
+        File file = new File(path);
+        if (file.exists())
+            file.delete();
+        myFileRepository.deleteMyFileById(id);
     }
 }

@@ -3,6 +3,7 @@ package com.shs.bysj.repository;
 import com.shs.bysj.pojo.MyFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,5 +13,8 @@ import java.util.List;
  */
 public interface MyFileRepository extends JpaRepository<MyFile,Long>, JpaSpecificationExecutor<MyFile> {
     public MyFile findFileByName(String name);
+    public MyFile findMyFileById(Long id);
     public List<MyFile> findAllByState(boolean s);
+    @Transactional
+    public void deleteMyFileById(Long id);
 }

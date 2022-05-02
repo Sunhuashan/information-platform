@@ -23,4 +23,26 @@ public interface IMyFileService {
      * @return
      */
     public List<MyFile> findAllFileByState();
+
+    /**
+     * 更新文件审核状态
+     */
+    public void updateFileState(MyFile myFile);
+
+    /**
+     * 查找所有文件，以供审核
+     * @return
+     */
+    public List<MyFile> findAllFile();
+
+    /**
+     * 添加文件审核意见
+     */
+    public void addCheckInfo(MyFile myFile);
+
+    /**
+     * 删除文件
+     * @param id
+     */
+    public void deleteFileById(Long id);
 }

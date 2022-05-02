@@ -20,6 +20,8 @@ spring:
       max-file-size: 300MB
       max-request-size: 300MB
 server:
+  tomcat:
+    connection-timeout: 60s
   port: 8443
 
 
