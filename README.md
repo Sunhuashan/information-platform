@@ -1,1 +1,1 @@
-# bysj
+# internal information platform
