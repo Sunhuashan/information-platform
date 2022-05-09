@@ -36,7 +36,29 @@ public interface IPostsService {
 
     /**
      * 删除帖子及其回帖
-     * @param id
+     * @param posts
      */
     public void deletePosts(Posts posts);
+
+    /**
+     * 后台
+     * 获取所有帖子
+     * @return
+     */
+    public List<Posts> findAllPosts();
+
+    /**
+     * 后台
+     * 更新帖子状态
+     */
+    public void updatePostsState(Posts posts);
+
+
+    /**
+     * 后台
+     * 更新审核意见
+     * @param posts
+     */
+    public void updateCheckInfo(Posts posts);
+
 }

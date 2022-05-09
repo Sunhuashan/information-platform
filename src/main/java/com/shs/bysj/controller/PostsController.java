@@ -54,4 +54,32 @@ public class PostsController {
         postsService.deletePosts(posts);
         return ResultFactory.buildSuccessResult(null);
     }
+
+    @ResponseBody
+    @GetMapping(value = "/api/admin/posts")
+    public Result findAllPosts() {
+        List<Posts> list = postsService.findAllPosts();
+        return ResultFactory.buildSuccessResult(list);
+    }
+
+    @ResponseBody
+    @PutMapping(value = "/api/admin/post")
+    public Result updateState(@RequestBody Posts posts) {
+        postsService.updatePostsState(posts);
+        return ResultFactory.buildSuccessResult(null);
+    }
+
+    @ResponseBody
+    @PutMapping(value = "/api/admin/posts-check-info")
+    public Result updateCheckInfo(@RequestBody Posts posts) {
+        postsService.updateCheckInfo(posts);
+        return ResultFactory.buildSuccessResult(null);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/api/admin/post")
+    public Result deletePostsByManager(@RequestBody Posts posts) {
+        postsService.deletePosts(posts);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

@@ -3,6 +3,7 @@ package com.shs.bysj.service.impl;
 import com.shs.bysj.pojo.Comment;
 import com.shs.bysj.repository.CommentRepository;
 import com.shs.bysj.service.ICommentService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +44,28 @@ public class CommentService implements ICommentService {
         }
         Collections.reverse(list);
         return list;
+    }
+
+    @Override
+    public List<Comment> findAll() {
+        List<Comment> list = commentRepository.findAll();
+        Collections.reverse(list);
+        return list;
+    }
+
+    @Override
+    public void updateState(Comment comment) {
+        Comment commentDB = commentRepository.findCommentById(comment.getId());
+
+        commentDB.setState(comment.isState());
+        commentDB.setCheckName(comment.getCheckName());
+        commentDB.setDate(DateUtil.getSqlDate());
+
+        commentRepository.save(commentDB);
+    }
+
+    @Override
+    public void deleteComment(Comment comment) {
+        commentRepository.deleteCommentById(comment.getId());
     }
 }

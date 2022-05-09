@@ -4,6 +4,7 @@ import com.shs.bysj.pojo.Posts;
 import com.shs.bysj.repository.CommentRepository;
 import com.shs.bysj.repository.PsotsRepository;
 import com.shs.bysj.service.IPostsService;
+import com.shs.bysj.utils.DateUtil;
 import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,35 @@ public class PostsService implements IPostsService {
     public void deletePosts(Posts posts) {
         psotsRepository.deletePostsById(posts.getId());
         commentRepository.deleteAllByPostsId(posts.getId());
+    }
+
+    @Override
+    public List<Posts> findAllPosts() {
+
+        List<Posts> list = psotsRepository.findAll();
+        Collections.reverse(list);
+        return list;
+    }
+
+    @Override
+    public void updatePostsState(Posts posts) {
+        Posts postsDB = psotsRepository.findPostsById(posts.getId());
+
+        postsDB.setState(posts.isState());
+        postsDB.setCheckName(posts.getCheckName());
+        postsDB.setDate(DateUtil.getSqlDate());
+
+        psotsRepository.save(postsDB);
+    }
+
+    @Override
+    public void updateCheckInfo(Posts posts) {
+        Posts postsDB = psotsRepository.findPostsById(posts.getId());
+
+        postsDB.setDate(DateUtil.getSqlDate());
+        postsDB.setCheckInfo(posts.getCheckInfo());
+        postsDB.setCheckName(posts.getCheckName());
+
+        psotsRepository.save(postsDB);
     }
 }

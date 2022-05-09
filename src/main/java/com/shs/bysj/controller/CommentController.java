@@ -38,4 +38,26 @@ public class CommentController {
         commentService.addComment(comment);
         return ResultFactory.buildSuccessResult(null);
     }
+
+    @ResponseBody
+    @GetMapping(value = "/api/admin/comments")
+    public Result findAllComment() {
+        List<Comment> list = commentService.findAll();
+        return ResultFactory.buildSuccessResult(list);
+    }
+
+    @ResponseBody
+    @PutMapping("/api/admin/comment")
+    public Result updateState(@RequestBody Comment comment) {
+        commentService.updateState(comment);
+        return ResultFactory.buildSuccessResult(null);
+
+    }
+
+    @ResponseBody
+    @PostMapping("/api/admin/delete-comment")
+    public Result deleteComment(@RequestBody Comment comment) {
+        commentService.deleteComment(comment);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

@@ -22,4 +22,25 @@ public interface ICommentService {
      * @return
      */
     public List<Comment> findAllByPostIdAndState(Long pid);
+
+    /**
+     * 后台
+     * 查找所有评论
+     * @return
+     */
+    public List<Comment> findAll();
+
+    /**
+     * 后台
+     * 更新状态
+     * @param comment
+     */
+    public void updateState(Comment comment);
+
+    /**
+     * 后台
+     * 删除
+     * @param comment
+     */
+    public void deleteComment(Comment comment);
 }
