@@ -15,8 +15,8 @@ import java.util.List;
 public interface PsotsRepository extends JpaRepository<Posts,Long>, JpaSpecificationExecutor<Posts> {
     public List<Posts> findAllByState(boolean state);
     public Posts findPostsById(Long id);
-    @Query(nativeQuery = true, value = "select * from posts where state = :state and release_name = :name")
-    public List<Posts> findAllByStateAndAndReleaseName(boolean state ,String name);
+    @Query(nativeQuery = true, value = "select * from posts where release_name = :name")
+    public List<Posts> findAllByReleaseName(String name);
     @Transactional
     public void deletePostsById(Long id);
 }

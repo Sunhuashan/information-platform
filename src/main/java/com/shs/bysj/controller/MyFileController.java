@@ -121,5 +121,13 @@ public class MyFileController {
         myFileService.deleteFileById(myFile.getId());
         return ResultFactory.buildSuccessResult(null);
     }
+
+    @ResponseBody
+    @PostMapping(value = "/api/home/files")
+    public Result findAllbyUploadName(@RequestBody MyFile myFile) {
+        String uploadName = myFile.getUploadName();
+        List<MyFile> list = myFileService.findAllByName(uploadName);
+        return ResultFactory.buildSuccessResult(list);
+    }
 }
 

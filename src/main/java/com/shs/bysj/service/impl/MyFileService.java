@@ -94,4 +94,11 @@ public class MyFileService implements IMyFileService {
             file.delete();
         myFileRepository.deleteMyFileById(id);
     }
+
+    @Override
+    public List<MyFile> findAllByName(String name) {
+        List<MyFile> myFiles = myFileRepository.findAllByUploadName(name);
+        Collections.reverse(myFiles);
+        return myFiles;
+    }
 }

@@ -17,4 +17,5 @@ public interface MyFileRepository extends JpaRepository<MyFile,Long>, JpaSpecifi
     public List<MyFile> findAllByState(boolean s);
     @Transactional
     public void deleteMyFileById(Long id);
+    public List<MyFile> findAllByUploadName(String name);
 }

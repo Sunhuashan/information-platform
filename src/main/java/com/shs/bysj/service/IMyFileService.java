@@ -45,4 +45,11 @@ public interface IMyFileService {
      * @param id
      */
     public void deleteFileById(Long id);
+
+    /**
+     * 根据上传人查找文件
+     * @param name
+     * @return
+     */
+    public List<MyFile> findAllByName(String name);
 }
