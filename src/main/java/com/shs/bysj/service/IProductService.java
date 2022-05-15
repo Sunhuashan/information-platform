@@ -41,4 +41,9 @@ public interface IProductService {
      * @param product
      */
     public void updateProductState(Product product);
+
+    /**
+     * 添加审核意见
+     */
+    public void addCheckInfo(Product product);
 }

@@ -30,6 +30,8 @@ public class Product {
     private String dataLink;
     private String more;
 
+
+    private String checkInfo;
     private Date date;
     private Long releaseId;
     private Long checkId;
@@ -39,6 +41,14 @@ public class Product {
     private String releaseName;
     @Transient
     private String checkName;
+
+    public String getCheckInfo() {
+        return checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
+    }
 
     public Long getId() {
         return id;

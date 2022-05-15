@@ -22,6 +22,8 @@ public class Publicity {
     private Date pubDate;
     private Long pubReleaseId;
     private Long pubCheckId;
+
+    private String checkInfo;
     @Column(columnDefinition = "boolean default false")
     private boolean pubState;
     @Transient
@@ -29,6 +31,13 @@ public class Publicity {
     @Transient
     private String pubCheckName;
 
+    public String getCheckInfo() {
+        return checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
+    }
     public Long getId() {
         return id;
     }

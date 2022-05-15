@@ -4,6 +4,7 @@ import com.shs.bysj.pojo.Product;
 import com.shs.bysj.repository.ManagerRepository;
 import com.shs.bysj.repository.ProductRepository;
 import com.shs.bysj.service.IProductService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,7 @@ public class ProductService implements IProductService {
         Long releaseId = managerRepository.findManagerByManagerUsername(product.getReleaseName()).getId();
         List<Product> list = productRepository.findAllByReleaseId(releaseId);
         for (Product temp : list)
-            if (temp.isState())
-                temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
+            temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
         return list;
     }
 
@@ -73,6 +73,17 @@ public class ProductService implements IProductService {
 
         Long checkId = managerRepository.findManagerByManagerUsername(product.getCheckName()).getId();
         productDB.setCheckId(checkId);
+
+        productRepository.save(productDB);
+    }
+
+    @Override
+    public void addCheckInfo(Product product) {
+        Product productDB = productRepository.findProductById(product.getId());
+
+        productDB.setDate(DateUtil.getSqlDate());
+        productDB.setCheckId(managerRepository.findManagerByManagerUsername(product.getCheckName()).getId());
+        productDB.setCheckInfo(product.getCheckInfo());
 
         productRepository.save(productDB);
     }

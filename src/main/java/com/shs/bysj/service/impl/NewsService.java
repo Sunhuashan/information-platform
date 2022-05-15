@@ -5,6 +5,7 @@ import com.shs.bysj.pojo.News;
 import com.shs.bysj.repository.ManagerRepository;
 import com.shs.bysj.repository.NewsRepository;
 import com.shs.bysj.service.INewsService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,5 +83,16 @@ public class NewsService implements INewsService {
         newsDB.setNewsReleaseName(releaseName);
         newsDB.setNewsCheckName(checkName);
         return newsDB;
+    }
+
+    @Override
+    public void addCheckInfo(News news) {
+        News newsDB = newsRepository.findNewsById(news.getId());
+
+        newsDB.setNewsDate(DateUtil.getSqlDate());
+        newsDB.setNewsCheckId(managerRepository.findManagerByManagerUsername(news.getNewsCheckName()).getId());
+        newsDB.setCheckInfo(news.getCheckInfo());
+
+        newsRepository.save(newsDB);
     }
 }

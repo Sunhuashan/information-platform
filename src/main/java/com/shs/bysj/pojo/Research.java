@@ -19,6 +19,7 @@ public class Research {
     private Date date;
     private Long releaseId;
     private Long checkId;
+    private String checkInfo;
     @Column(columnDefinition = "boolean default false")
     private boolean state;
 
@@ -27,6 +28,13 @@ public class Research {
     @Transient
     private String checkName;
 
+    public String getCheckInfo() {
+        return checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
+    }
     public Long getId() {
         return id;
     }

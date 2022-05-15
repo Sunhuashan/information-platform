@@ -4,8 +4,10 @@ import com.shs.bysj.pojo.Research;
 import com.shs.bysj.repository.ManagerRepository;
 import com.shs.bysj.repository.ResearchRepository;
 import com.shs.bysj.service.IResearchService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.unit.DataUnit;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,8 +51,7 @@ public class ResearchService implements IResearchService {
         Long releaseId = managerRepository.findManagerByManagerUsername(research.getReleaseName()).getId();
         List<Research> list = researchRepository.findAllByReleaseId(releaseId);
         for (Research temp : list)
-            if (temp.isState())
-                temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
+            temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
         return list;
     }
 
@@ -94,5 +95,16 @@ public class ResearchService implements IResearchService {
             }
         });
         return list;
+    }
+
+    @Override
+    public void addCheckInfo(Research research) {
+        Research researchDB = researchRepository.findResearchById(research.getId());
+
+        researchDB.setCheckInfo(research.getCheckInfo());
+        researchDB.setDate(DateUtil.getSqlDate());
+        researchDB.setCheckId(managerRepository.findManagerByManagerUsername(research.getCheckName()).getId());
+
+        researchRepository.save(researchDB);
     }
 }

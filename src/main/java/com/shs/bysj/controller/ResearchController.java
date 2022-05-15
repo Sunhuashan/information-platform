@@ -1,5 +1,6 @@
 package com.shs.bysj.controller;
 
+import com.shs.bysj.pojo.Publicity;
 import com.shs.bysj.pojo.Research;
 import com.shs.bysj.result.Result;
 import com.shs.bysj.result.ResultFactory;
@@ -65,5 +66,12 @@ public class ResearchController {
     public Result findAllResearchByState() {
         List<Research> list = researchService.findAllResearchByState();
         return ResultFactory.buildSuccessResult(list);
+    }
+
+    @ResponseBody
+    @PutMapping(value = "/api/admin/research-check-info")
+    public Result addCheckInfo(@RequestBody Research research) {
+        researchService.addCheckInfo(research);
+        return ResultFactory.buildSuccessResult(null);
     }
 }

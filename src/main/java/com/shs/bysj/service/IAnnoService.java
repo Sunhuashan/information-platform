@@ -2,6 +2,8 @@ package com.shs.bysj.service;
 
 import com.shs.bysj.pojo.Announcement;
 import com.shs.bysj.pojo.Manager;
+import com.shs.bysj.pojo.News;
+
 import java.util.List;
 
 /**
@@ -49,4 +51,9 @@ public interface IAnnoService {
      * @return
      */
     public List<Announcement> findAllAnnoByState();
+
+    /**
+     * 添加审核意见
+     */
+    public void addCheckInfo(Announcement announcement);
 }

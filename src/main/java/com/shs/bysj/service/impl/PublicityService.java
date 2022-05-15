@@ -4,6 +4,7 @@ import com.shs.bysj.pojo.Publicity;
 import com.shs.bysj.repository.ManagerRepository;
 import com.shs.bysj.repository.PublicityRepository;
 import com.shs.bysj.service.IPublicityService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +38,7 @@ public class PublicityService implements IPublicityService {
         Long rid = managerRepository.findManagerByManagerUsername(publicity.getPubReleaseName()).getId();
         List<Publicity> list = publicityRepository.findAllByPubReleaseId(rid);
         for(Publicity temp : list) {
-            if (temp.isPubState())
-                temp.setPubCheckName(managerRepository.findManagerById(temp.getPubCheckId()).getManagerUsername());
+            temp.setPubCheckName(managerRepository.findManagerById(temp.getPubCheckId()).getManagerUsername());
         }
         return list;
     }
@@ -73,5 +73,16 @@ public class PublicityService implements IPublicityService {
     @Override
     public List<Publicity> findAllPublicityByState() {
         return publicityRepository.findAllByPubState(true);
+    }
+
+    @Override
+    public void addCheckInfo(Publicity publicity) {
+        Publicity publicityDB = publicityRepository.findPublicityById(publicity.getId());
+
+        publicityDB.setPubDate(DateUtil.getSqlDate());
+        publicityDB.setCheckInfo(publicity.getCheckInfo());
+        publicityDB.setPubCheckId(managerRepository.findAllByManagerUsername(publicity.getPubCheckName()).getId());
+
+        publicityRepository.save(publicityDB);
     }
 }

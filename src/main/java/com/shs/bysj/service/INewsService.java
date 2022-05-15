@@ -1,5 +1,6 @@
 package com.shs.bysj.service;
 
+import com.shs.bysj.pojo.MyFile;
 import com.shs.bysj.pojo.News;
 
 import java.util.List;
@@ -44,4 +45,9 @@ public interface INewsService {
      * 根据id返回新闻
      */
     public News findNewsById(News news);
+
+    /**
+     * 添加审核意见
+     */
+    public void addCheckInfo(News news);
 }

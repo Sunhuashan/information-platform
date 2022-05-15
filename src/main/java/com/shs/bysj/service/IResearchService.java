@@ -1,5 +1,6 @@
 package com.shs.bysj.service;
 
+import com.shs.bysj.pojo.News;
 import com.shs.bysj.pojo.Research;
 
 import java.util.List;
@@ -50,4 +51,9 @@ public interface IResearchService {
      * @return
      */
     public List<Research> findAllResearchByState();
+
+    /**
+     * 添加审核意见
+     */
+    public void addCheckInfo(Research research);
 }

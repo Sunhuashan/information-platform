@@ -22,6 +22,16 @@ public class News {
     private Long newsReleaseId;
     private Long newsCheckId;
     private String newsImagePath;
+    private String checkInfo;
+
+    public String getCheckInfo() {
+        return checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
+    }
+
     @Column(columnDefinition = "boolean default false")
     private boolean newsState;
     @Transient

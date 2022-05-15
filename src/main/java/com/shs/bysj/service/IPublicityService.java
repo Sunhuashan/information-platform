@@ -1,5 +1,6 @@
 package com.shs.bysj.service;
 
+import com.shs.bysj.pojo.News;
 import com.shs.bysj.pojo.Publicity;
 
 import java.util.List;
@@ -43,4 +44,9 @@ public interface IPublicityService {
      * @return
      */
     public List<Publicity> findAllPublicityByState();
+
+    /**
+     * 添加审核意见
+     */
+    public void addCheckInfo(Publicity publicity);
 }

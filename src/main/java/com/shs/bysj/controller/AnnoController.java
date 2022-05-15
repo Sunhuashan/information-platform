@@ -75,4 +75,11 @@ public class AnnoController {
         List<Announcement> list = annoService.findAllAnnoByState();
         return ResultFactory.buildSuccessResult(list);
     }
+
+    @ResponseBody
+    @PutMapping(value = "/api/admin/anno-check-info")
+    public Result addCheckInfo(@RequestBody Announcement announcement) {
+        annoService.addCheckInfo(announcement);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

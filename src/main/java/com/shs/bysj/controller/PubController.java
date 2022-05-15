@@ -104,4 +104,11 @@ public class PubController {
         List<Publicity> list = publicityService.findAllPublicityByState();
         return ResultFactory.buildSuccessResult(list);
     }
+
+    @ResponseBody
+    @PutMapping(value = "/api/admin/publicity-check-info")
+    public Result addCheckInfo(@RequestBody Publicity publicity) {
+        publicityService.addCheckInfo(publicity);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

@@ -18,6 +18,8 @@ public class Announcement {
     private Date annoDate;
     private Long annoReleaseId;
     private Long annoCheckId;
+    private String checkInfo;
+
     @Column(columnDefinition = "boolean default false")
     private boolean annoState;
 
@@ -38,6 +40,14 @@ public class Announcement {
                 ", annoReleaseName='" + annoReleaseName + '\'' +
                 ", annoCheckName='" + annoCheckName + '\'' +
                 '}';
+    }
+
+    public String getCheckInfo() {
+        return checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
     }
 
     public Long getId() {

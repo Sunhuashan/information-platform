@@ -62,4 +62,10 @@ public class ProductController {
         return ResultFactory.buildSuccessResult(null);
     }
 
+    @ResponseBody
+    @PutMapping(value = "/api/admin/product-check-info")
+    public Result addCheckInfo(@RequestBody Product product) {
+        productService.addCheckInfo(product);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

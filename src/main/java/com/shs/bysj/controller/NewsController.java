@@ -43,11 +43,8 @@ public class NewsController {
             Long newsReleaseId =  managerService.findManagerByManagerName(name).getId();
             List<News> newsList = newsService.findAllByReleaseId(newsReleaseId);
             for (News news : newsList){
-                if(news.isNewsState()) {
-                    String checkName = managerService.findManagerById(news.getNewsCheckId()).getManagerUsername();
-                    news.setNewsCheckName(checkName);
-                }
-
+                String checkName = managerService.findManagerById(news.getNewsCheckId()).getManagerUsername();
+                news.setNewsCheckName(checkName);
             }
 
             //此处日后可添加对新闻的排序
@@ -213,5 +210,13 @@ public class NewsController {
         } catch (Exception e) {
             return ResultFactory.buildFailResult("出错了");
         }
+    }
+
+    @ResponseBody
+    @CrossOrigin
+    @PutMapping(value = "/api/admin/news-check-info")
+    public Result addCheckInfo(@RequestBody News news) {
+        newsService.addCheckInfo(news);
+        return ResultFactory.buildSuccessResult(null);
     }
 }

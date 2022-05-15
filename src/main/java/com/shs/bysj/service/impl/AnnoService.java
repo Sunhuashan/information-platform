@@ -5,6 +5,7 @@ import com.shs.bysj.pojo.Manager;
 import com.shs.bysj.repository.AnnoRepository;
 import com.shs.bysj.repository.ManagerRepository;
 import com.shs.bysj.service.IAnnoService;
+import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,7 @@ public class AnnoService implements IAnnoService {
         Long id = managerRepository.findManagerByManagerUsername(name).getId();
         List<Announcement> list = annoRepository.findAllByAnnoReleaseId(id);
         for (Announcement anno : list) {
-            if (anno.isAnnoState())
-                anno.setAnnoCheckName(managerRepository.findManagerById(anno.getAnnoCheckId()).getManagerUsername());
+            anno.setAnnoCheckName(managerRepository.findManagerById(anno.getAnnoCheckId()).getManagerUsername());
         }
         return list;
     }
@@ -96,6 +96,17 @@ public class AnnoService implements IAnnoService {
             }
         });
         return list;
+    }
+
+    @Override
+    public void addCheckInfo(Announcement announcement) {
+        Announcement annoDB = annoRepository.findAnnouncementById(announcement.getId());
+
+        annoDB.setAnnoDate(DateUtil.getSqlDate());
+        annoDB.setAnnoCheckId(managerRepository.findManagerByManagerUsername(announcement.getAnnoCheckName()).getId());
+        annoDB.setCheckInfo(announcement.getCheckInfo());
+
+        annoRepository.save(annoDB);
     }
 
 
