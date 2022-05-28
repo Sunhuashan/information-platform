@@ -221,4 +221,12 @@ public class NewsController {
         newsService.addCheckInfo(news);
         return ResultFactory.buildSuccessResult(null);
     }
+
+    @ResponseBody
+    @CrossOrigin
+    @PutMapping(value = "/api/admin/news")
+    public Result updateNews(@RequestBody News news) {
+        newsService.updateNews(news);
+        return ResultFactory.buildSuccessResult(null);
+    }
 }

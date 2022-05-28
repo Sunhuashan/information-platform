@@ -97,4 +97,12 @@ public class NewsService implements INewsService {
 
         newsRepository.save(newsDB);
     }
+
+    @Override
+    public void updateNews(News news) {
+        news.setNewsDate(DateUtil.getSqlDate());
+        news.setNewsReleaseId(managerRepository.findManagerByManagerUsername(news.getNewsReleaseName()).getId());
+        news.setNewsState(false);
+        newsRepository.save(news);
+    }
 }

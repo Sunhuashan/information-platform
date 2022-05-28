@@ -24,13 +24,6 @@ public class News {
     private String newsImagePath;
     private String checkInfo;
 
-    public String getCheckInfo() {
-        return checkInfo;
-    }
-
-    public void setCheckInfo(String checkInfo) {
-        this.checkInfo = checkInfo;
-    }
 
     @Column(columnDefinition = "boolean default false")
     private boolean newsState;
@@ -38,6 +31,15 @@ public class News {
     private String newsReleaseName;
     @Transient
     private String newsCheckName;
+
+
+    public String getCheckInfo() {
+        return checkInfo;
+    }
+
+    public void setCheckInfo(String checkInfo) {
+        this.checkInfo = checkInfo;
+    }
 
     public String getNewsReleaseName() {
         return newsReleaseName;

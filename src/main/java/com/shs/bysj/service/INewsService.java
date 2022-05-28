@@ -50,4 +50,10 @@ public interface INewsService {
      * 添加审核意见
      */
     public void addCheckInfo(News news);
+
+    /**
+     * 更新新闻
+     * @param news
+     */
+    public void updateNews(News news);
 }
