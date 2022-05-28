@@ -8,6 +8,7 @@ import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +39,10 @@ public class PublicityService implements IPublicityService {
         Long rid = managerRepository.findManagerByManagerUsername(publicity.getPubReleaseName()).getId();
         List<Publicity> list = publicityRepository.findAllByPubReleaseId(rid);
         for(Publicity temp : list) {
-            temp.setPubCheckName(managerRepository.findManagerById(temp.getPubCheckId()).getManagerUsername());
+            if (temp.getPubCheckId() != null)
+                temp.setPubCheckName(managerRepository.findManagerById(temp.getPubCheckId()).getManagerUsername());
         }
+        Collections.reverse(list);
         return list;
     }
 
@@ -50,6 +53,7 @@ public class PublicityService implements IPublicityService {
             Long rid = publicity.getPubReleaseId();
             publicity.setPubReleaseName(managerRepository.findManagerById(rid).getManagerUsername());
         }
+        Collections.reverse(publicityList);
         return publicityList;
     }
 

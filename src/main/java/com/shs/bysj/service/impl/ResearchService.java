@@ -51,7 +51,9 @@ public class ResearchService implements IResearchService {
         Long releaseId = managerRepository.findManagerByManagerUsername(research.getReleaseName()).getId();
         List<Research> list = researchRepository.findAllByReleaseId(releaseId);
         for (Research temp : list)
-            temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
+            if (temp.getCheckId() != null)
+                temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
+        Collections.reverse(list);
         return list;
     }
 

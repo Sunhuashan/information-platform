@@ -8,6 +8,8 @@ import com.shs.bysj.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class ProductService implements IProductService {
         for (Product product : list) {
             product.setReleaseName(managerRepository.findManagerById(product.getReleaseId()).getManagerUsername());
         }
+        Collections.reverse(list);
         return list;
     }
 
@@ -36,7 +39,9 @@ public class ProductService implements IProductService {
         Long releaseId = managerRepository.findManagerByManagerUsername(product.getReleaseName()).getId();
         List<Product> list = productRepository.findAllByReleaseId(releaseId);
         for (Product temp : list)
-            temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
+            if (temp.getCheckId() != null)
+                temp.setCheckName(managerRepository.findManagerById(temp.getCheckId()).getManagerUsername());
+        Collections.reverse(list);
         return list;
     }
 

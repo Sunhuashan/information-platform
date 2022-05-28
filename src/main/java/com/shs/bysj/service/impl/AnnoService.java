@@ -27,8 +27,10 @@ public class AnnoService implements IAnnoService {
         Long id = managerRepository.findManagerByManagerUsername(name).getId();
         List<Announcement> list = annoRepository.findAllByAnnoReleaseId(id);
         for (Announcement anno : list) {
-            anno.setAnnoCheckName(managerRepository.findManagerById(anno.getAnnoCheckId()).getManagerUsername());
+            if (anno.getAnnoCheckId() != null)
+                anno.setAnnoCheckName(managerRepository.findManagerById(anno.getAnnoCheckId()).getManagerUsername());
         }
+        Collections.reverse(list);
         return list;
     }
 
@@ -68,6 +70,7 @@ public class AnnoService implements IAnnoService {
             String name = managerRepository.findManagerById(anno.getAnnoReleaseId()).getManagerUsername();
             anno.setAnnoReleaseName(name);
         }
+        Collections.reverse(list);
         return list;
     }
 

@@ -25,7 +25,9 @@ public class NewsService implements INewsService {
     ManagerRepository managerRepository;
     @Override
     public List<News> findAllByReleaseId(Long id) {
-        return newsRepository.findAllByNewsReleaseId(id);
+        List<News> list = newsRepository.findAllByNewsReleaseId(id);
+        Collections.reverse(list);
+        return list;
     }
 
     @Override

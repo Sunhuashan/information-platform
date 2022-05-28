@@ -12,9 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -43,8 +42,10 @@ public class NewsController {
             Long newsReleaseId =  managerService.findManagerByManagerName(name).getId();
             List<News> newsList = newsService.findAllByReleaseId(newsReleaseId);
             for (News news : newsList){
-                String checkName = managerService.findManagerById(news.getNewsCheckId()).getManagerUsername();
-                news.setNewsCheckName(checkName);
+                if (news.getNewsCheckId() != null) {
+                    String checkName = managerService.findManagerById(news.getNewsCheckId()).getManagerUsername();
+                    news.setNewsCheckName(checkName);
+                }
             }
 
             //此处日后可添加对新闻的排序
@@ -163,6 +164,7 @@ public class NewsController {
     public Result findAllNews(){
         try {
             List<News> newsList = newsService.findAll();
+            Collections.reverse(newsList);
             for (News news : newsList) {
                 String name = managerService.findManagerById(news.getNewsReleaseId()).getManagerUsername();
                 news.setNewsReleaseName(name);
